@@ -1,0 +1,34 @@
+:root{
+    --bg: #FFF9E9;
+    --special: #003366;
+    --headings: #0055A5;
+    --primary: #515a5e;
+    --secondary: #001e2b;
+}
+
+::selection{
+    background-color: #F4B400;
+}
+
+html{
+    background-color: var(--bg);
+    color: #FFF9E9;
+}
+
+.cards-color{
+    background-color: var(--headings);
+}
+
+.shadows{
+    background-color: var(--shadows);
+}
+
+.primary{
+    background-color: var(--primary);
+    color: #FFF9E9;
+}
+
+a{
+    color: #0055A5;
+    text-decoration: none!important;
+}

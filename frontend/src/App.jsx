@@ -1,21 +1,20 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
 // Styles
 import './App.css'
 
-// Components
-import Home from './components/Home.jsx';
-
-// Routes
-const router = createBrowserRouter([
-  {path :'/', element: <Home/>},
-])
-
+import { Route, Routes } from "react-router-dom";
+import { Login, SignUp } from "./pages";
+import Home from "./pages/Home/Home";
 
 function App() {
   return (
-    <RouterProvider router={router}/>
-  )
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;
