@@ -12,17 +12,16 @@ const cookieParser = require("cookie-parser");
 
 // Routes
 const authRoute = require('./Routes/AuthRoute');
-
+const collectionRoute = require('./Routes/CollectionRoute');
 
 // Database Connect
 const connectDB = require('./config/db')
 connectDB();
 
-
 app.use(
     cors(
         {
-            origin: ["http://localhost:5000"],
+            origin: ["http://localhost:5173"],
             methods: ["GET", "POST", "PUT", "DELETE"],
             credentials: true,
         }
@@ -38,3 +37,4 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/", authRoute);
+app.use("/dbInfo/", collectionRoute);
