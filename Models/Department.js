@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     required: [true, "Your mail address is required"],
     unique: true,
   },
-  username: {
+  name: {
     type: String,
     required: [true, "Your username is required"],
   },
@@ -23,4 +23,4 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Employee", userSchema);
+module.exports = mongoose.model("Department", userSchema);

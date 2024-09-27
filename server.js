@@ -1,40 +1,28 @@
-require('dotenv').config();
-const express = require('express');
-const path = require('path');
-
+const express = require("express");
+const db = require('./config/db');
+const cors = require("cors");
 const app = express();
-const port = process.env.PORT || 5000;
-
-// For API connectivity (to handle different types of data)
-const cors = require('cors');
-const bodyParser = require('body-parser');
+require("dotenv").config();
 const cookieParser = require("cookie-parser");
 
 // Routes
-const authRoute = require('./Routes/AuthRoute');
-const collectionRoute = require('./Routes/CollectionRoute');
+const authRoute = require("./Routes/AuthRoute");
 
-// Database Connect
-const connectDB = require('./config/db')
-connectDB();
+const { PORT } = process.env;
+db();
+
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
 
 app.use(
-    cors(
-        {
-            origin: ["http://localhost:5173"],
-            methods: ["GET", "POST", "PUT", "DELETE"],
-            credentials: true,
-        }
-    )
-)
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
-app.listen(port, () => {
-    console.log(`Server Running on PORT ${port}`);
-})
-
-app.use(cors({origin: true, credentials: true}))
-app.use(express.json());
 app.use(cookieParser());
-
+app.use(express.json());
 app.use("/", authRoute);
-app.use("/dbInfo/", collectionRoute);

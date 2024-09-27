@@ -23,4 +23,4 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Employee", userSchema);
+module.exports = mongoose.model("Admin", userSchema);

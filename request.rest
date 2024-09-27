@@ -1,0 +1,32 @@
+GET http://localhost:5000/dbInfo/get
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "email" : "test@gmail.com",
+    "password" : "test"
+}
+
+###
+
+POST http://localhost:4000/signup
+Content-Type: application/json
+
+{
+    "email" : "admin@gmail.com",
+    "password" : "test",
+    "username" : "test"
+}
+
+
+###
+
+DELETE http://localhost:5000/dbInfo/delete
+
+###
+
+GET  http://localhost:5000/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmY1ODM5YWMyNjJmOTI3ZjVkNjQwZmEiLCJpYXQiOjE3MjczNzE5NjQsImV4cCI6MTcyNzYzMTE2NH0.2FGks8e6O5JdHClUfOhf5gX05h0OEbiAsc_QsO60W5g
