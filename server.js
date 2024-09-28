@@ -23,6 +23,10 @@ app.use(
   })
 );
 
+app.get( "/", ( req, res ) => {
+  res.send("Welcome");
+})
+
 app.use(cookieParser());
 app.use(express.json());
 app.use("/", authRoute);
