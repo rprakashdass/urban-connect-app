@@ -26,12 +26,12 @@ module.exports.EmpSignup = async (req, res) => {
     const token = createSecretToken(user._id);
 
     // Send cookie with token
-    res.cookie("token", token, {
-      httpOnly: true, // For security, don't allow access via client-side JavaScript
-      secure: process.env.NODE_ENV === "production", // Set secure flag in production
-      sameSite: "strict", // Prevent CSRF
+    res.cookie('token', process.env.TOKEN_KEY, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
     });
-
+    
     // Respond with success message and user data
     return res.status(201).json({
       message: "User signed up successfully",
