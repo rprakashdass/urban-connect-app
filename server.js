@@ -3,14 +3,10 @@ const db = require('./config/db');
 const cors = require("cors");
 const helmet = require('helmet');
 const app = express();
-require("dotenv").config();
 const cookieParser = require("cookie-parser");
 
 // env
-const adminUrl = process.env.ADMIN_URL;
-const agencyUrl = process.env.AGENCY_URL;
-const employeeUrl = process.env.EMPLOYEE_URL;
-const deptUrl = process.env.DEPARTMENT_URL;
+require("dotenv").config();
 
 
 // Routes
@@ -28,7 +24,7 @@ app.listen(PORT, () => {
 // CORS
 app.use(
   cors({
-    origin: [ deptUrl, employeeUrl, agencyUrl, adminUrl ],
+    origin: [ "https://urban-connect-employee.onrender.com", "https://urban-connect-admin.onrender.com", "https://urban-connect-department.onrender.com", "https://urban-connect-agency.onrender.com" ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
