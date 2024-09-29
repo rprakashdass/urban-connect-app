@@ -6,8 +6,16 @@ const app = express();
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 
+// env
+const adminUrl = process.env.ADMIN_URL;
+const agencyUrl = process.env.AGENCY_URL;
+const employeeUrl = process.env.EMPLOYEE_URL;
+const deptUrl = process.env.DEPARTMENT_URL;
+
+
 // Routes
 const authRoute = require("./Routes/AuthRoute");
+const collectionRoute = require("./Routes/CollectionRoute")
 
 const { PORT } = process.env;
 db();
@@ -20,12 +28,7 @@ app.listen(PORT, () => {
 // CORS
 app.use(
   cors({
-    origin: [
-      "https://urban-connect-employee.onrender.com",
-      "http://localhost:5174", 
-      "http://localhost:5175", 
-      "http://localhost:5176"
-    ],
+    origin: [ deptUrl, employeeUrl, agencyUrl, adminUrl ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -39,7 +42,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'none'"],
-      imgSrc: ["'self'", "data:", "https://urban-connect-employee.onrender.com"],
+      imgSrc: ["'self'", "data:", "https://urban-connect.e.onrender.com"],
       scriptSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       connectSrc: ["'self'"],
@@ -58,6 +61,7 @@ app.use(express.json());
 
 // Routes
 app.use("/", authRoute);
+app.use("/db/", collectionRoute)
 
 // Global error handler
 app.use((err, req, res, next) => {
