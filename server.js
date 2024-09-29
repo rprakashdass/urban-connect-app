@@ -38,7 +38,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'none'"],
-      imgSrc: ["'self'", "data:", "https://urban-connect.e.onrender.com"],
+      imgSrc: ["'self'", "data:", "https://urban-connect-employee.onrender.com"],
       scriptSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       connectSrc: ["'self'"],
