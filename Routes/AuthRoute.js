@@ -1,32 +1,57 @@
-// controllers
-const { EmpSignup, EmpLogin } = require('../Controllers/EmployeeAuthController')
-const { AdminSignup, AdminLogin } = require('../Controllers/AdminAuthController')
-const { AgencySignup, AgencyLogin } = require('../Controllers/AgencyAuthController')
-const { DeptSignup, DeptLogin } = require('../Controllers/DeptAuthController')
+// Import controllers
+const { EmpSignup, EmpLogin } = require('../Controllers/EmployeeAuthController');
+const { AdminSignup, AdminLogin } = require('../Controllers/AdminAuthController');
+const { AgencySignup, AgencyLogin } = require('../Controllers/AgencyAuthController');
+const { DeptSignup, DeptLogin } = require('../Controllers/DeptAuthController');
 
-// middlewares
-const { employeeVerification } = require('../Middlewares/EmployeeAuthMiddleware')
+// Import middlewares
+const { employeeVerification } = require('../Middlewares/EmployeeAuthMiddleware');
 const { deptVerification } = require('../Middlewares/DeptAuthMiddleware');
 const { adminVerification } = require('../Middlewares/AdminAuthMiddleware');
 const { agencyVerification } = require('../Middlewares/AgencyAuthMiddleware');
 
-const router = require('express').Router()
+// Load environment variables
+require('dotenv').config();
+const adminUrl = process.env.ADMIN_URL;
+const agencyUrl = process.env.AGENCY_URL;
+const employeeUrl = process.env.EMPLOYEE_URL;
+const deptUrl = process.env.DEPARTMENT_URL;
 
-router.post('/admin/signup', AdminSignup)
-router.post('/admin/login', AdminLogin)
+// Create router
+const router = require('express').Router();
 
-router.post('/d/signup', DeptSignup)
-router.post('/d/login', DeptLogin)
+// Admin routes
+router.post(`${adminUrl}/signup`, AdminSignup);
+router.post(`${adminUrl}/login`, AdminLogin);
 
-router.post('/a/signup', AgencySignup)
-router.post('/a/login', AgencyLogin)
+// Department routes
+router.post(`${deptUrl}/signup`, DeptSignup);
+router.post(`${deptUrl}/login`, DeptLogin);
 
-router.post('/e/signup', EmpSignup)
-router.post('/e/login', EmpLogin)
+// Agency routes
+router.post(`${agencyUrl}/signup`, AgencySignup);
+router.post(`${agencyUrl}/login`, AgencyLogin);
 
-router.post('/e/', employeeVerification)
-router.post('/d/', deptVerification)
-router.post('/a/', adminVerification)
-router.post('/admin/', agencyVerification)
+// Employee routes
+router.post(`${employeeUrl}/signup`, EmpSignup);
+router.post(`${employeeUrl}/login`, EmpLogin);
 
-module.exports = router
+// Verification middleware for protected routes (e.g., for authorized actions)
+router.post(`${employeeUrl}/protected`, employeeVerification, (req, res) => {
+    res.send("Employee verified and authorized.");
+});
+
+router.post(`${deptUrl}/protected`, deptVerification, (req, res) => {
+    res.send("Department verified and authorized.");
+});
+
+router.post(`${agencyUrl}/protected`, agencyVerification, (req, res) => {
+    res.send("Agency verified and authorized.");
+});
+
+router.post(`${adminUrl}/protected`, adminVerification, (req, res) => {
+    res.send("Admin verified and authorized.");
+});
+
+// Export router
+module.exports = router;

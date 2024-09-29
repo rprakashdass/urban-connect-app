@@ -1,3 +1,4 @@
+require("dotenv").config();
 const User = require("../Models/Department");
 const { createSecretToken } = require("../util/SecretToken");
 const bcrypt = require("bcryptjs");
